@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ProfileBuilder</title>
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css">
+</head>
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+
+<body scroll=no style="border:0px; overflow:hidden">
+<style>
+
+input[type="text"] {height:16px;}
+.quantity {background-color:RGB(225,225,225);width:132px;text-align:right;margin-right:0px;border-right:0px;}
+#totalCost {vertical-align:middle;background-color:RGB(255,255,255);width:90px;margin:0px;height:12px;}
+#costSource {background-color:RGB(225,225,225);width:98%;}
+.dlgButton {margin:2px;padding:2px;width:auto;height:auto;}
+.smallbutton {border:1px solid gray;vertical-align:middle;padding:2px;margin:0px;width:12px;height:12px;}
+.smallbutton:hover {background-color:RGB(250,250,250);}
+
+.smallbutton[disabled="disabled"] {opacity:0.3;}
+.smallbutton[disabled="disabled"]:hover {opacity:0.3;background-color:transparent;border:1px solid transparent;}
+.smallbutton[disabled="disabled"]:active {top:0px;left:0px;opacity:0.3;background-color:transparent;border:1px solid transparent;}
+</style>
+
+<table style="width:100%;">
+
+<tr>
+<td align="left">Profile Members</td>
+<td align="right"><input class="quantity" id="numProfileMembers" readonly="true"></td>
+</tr>
+
+<tr>
+<td align="left">Groups/Components</td>
+<td align="right"><input class="quantity" id="numInstances" readonly="true"></td>
+</tr>
+
+<tr>
+<td align="left" id="lengthLabel">Length</td>
+<td align="right"><input class="quantity" id="totalLength" readonly="true"></td>
+</tr>
+
+<tr>
+<td align="left" id="areaLabel">Surface Area (in2)</td>
+<td align="right"><input class="quantity" id="totalSurfaceArea" readonly="true"></td>
+</tr>
+
+
+<tr>
+<td align="left" id="volumeLabel">Volume (in3)</td>
+<td align="right"><input class="quantity" id="totalVolume" readonly="true"></td>
+</tr>
+
+<tr>
+<td align="left" id="weightLabel">Weight (lbs)</td>
+<td align="right"><input class="quantity" id="totalWeight" readonly="true"></td>
+</tr>
+
+<tr>
+<td align="left">Cost</td>
+<td align="right">
+	<input class="quantity" id="totalCost">
+	<input type="image" class="smallbutton" id="costOverride" src="check.png" onclick="tellSU(this);">
+	<input type="image" class="smallbutton" id="costOverrideCancel" src="x.png" onclick="tellSU(this);">
+	</td>
+</tr>
+
+<tr>
+<td align="left" colspan="2">
+<input id="costSource" readonly="readonly"></td>
+</tr>
+</table>
+
+<div style="margin-top:0px;padding-top:0px;">
+<table>
+<tr align="center">
+<td>
+<input id="setLayers" class="dlgButton" type="button" value="Layer$" onclick="tellSU(this);">
+<input id="setMaterials" class="dlgButton" type="button" value="Material$" onclick="tellSU(this);">
+<input id="exportHTML" class="dlgButton" type="button" value="HTML Report" onclick="tellSU(this);">
+<input id="exportCSV" class="dlgButton" type="button" value="CSV Report" onclick="tellSU(this);">
+<input id="showMissingData" class="dlgButton" type="button" value="Show Missing $" onclick="tellSU(this);">
+</td>
+</tr>
+</table>
+</div>
+
+<script type="text/javascript">
+
+$("#setLayers,#setMaterials, #exportHTML, #exportCSV, #showMissingData").button();
+
+function tellSU(element)
+{
+	id=element.id
+	value=element.value
+	window.location='skp:ValueChanged@'+id +"|"+ value;
+}
+
+</script>
+
+</body>
+</html>

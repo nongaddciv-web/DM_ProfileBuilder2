@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="ScreenSteps http://www.screensteps.com/" />
+	<title>What's New in Profile Builder 2</title>
+	<link href="../css/neutral.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
+	<link href="../css/prettyPhoto.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
+	<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			$("a[rel^='prettyPhoto']").prettyPhoto({
+			  show_title: false
+			});
+		});
+  </script>
+	
+</head>
+
+<body class="lucida">
+	<div id="wrapper">		
+		<div id="LessonContent">
+			<div class="LessonHeader">
+			  <p><a href="../index.html">Back to Table of Contents</a></p>
+				<h1 class="LessonTitle">What's New in Profile Builder 2</h1>
+			</div>
+			
+			
+				<div id="step_1" class="lessonStep top">
+	        <h2 class="StepTitle">New Features</h2>
+		 <div class="instructions">
+  <ul>
+<li>Added ability to set the width and height of a Profile</li>
+<li>Added ability to set the Layer and Material associated with a Profile.  Auto-UV mapping will be applied if material has a texture.</li>
+<li>Added Profile Browser (note: Profiles are now stored as SKP files, PLB files are no longer used but can be imported and converted to SKP files)</li>
+<li>1 Dimensional polyline Profiles are now supported.  Select a Polyline prior to creating a profile to create a 1D Profile</li>
+<li>New Extend Tool</li>
+<li>New Trim Profile Member to Solid Tool</li>
+<li>New Trim Profile Member to Face Tool</li>
+<li>New Smart-Path Select Tool </li>
+<li>New Revolve Profile Tool - revolve a profile 360 degrees around any axis</li>
+<li>New Stamp Profile Tool - place a profile in your model as a component</li>
+<li>New Quantifier Tool - Instant quantity reporting of selected entities</li>
+<li>New HTML reports using jquery DataTables plugin</li>
+<li>New cost estimating features (assign quantities and costs associated with layers and materials)</li>
+<li>Show objects with missing cost data</li>
+<li>New Assembler Tool - create, save, and build parametric assemblies comprised of Profile Members and Components</li>
+<li>Profile Members are now allowed to be converted to components and they will still be recognized as Profile Members</li>
+<li>Profile Members can now have their direction reversed using the right-click context menu</li>
+<li>PMPI now works for Profile Members nested inside other groups or components</li>
+<li>Added ability to copy of a Profile - click the &lsquo;Add Profile&rsquo; button with nothing selected</li>
+<li>You can now select an existing Profile Member prior to using the &lsquo;Build Along Path&rsquo; tool. The path of the selected Profile Member will be used to define the path for the new Profile Member.</li>
+<li>V:H ratios can be used for Profile rotation input (eg: 1:12)</li>
+<li>New UI</li>
+</ul>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_2" class="lessonStep top">
+	        <h2 class="StepTitle">Workflow Changes / Changes to Previous Features</h2>
+		 <div class="instructions">
+  <ul>
+<li>PLB files are no longer used. Each profile is stored as a unique SKP file (which can of course be edited)</li>
+<li>Use right-click, Enter key, or ESC to complete a Profile Member when building</li>
+<li>Edit Path of Profile Member is moved to PB2 toolbar.</li>
+<li>To Edit the path of a Profile Member (or Assembly), first double-click the Member, then click the toolbar button</li>
+<li>Use arrow keys to lock axis when using build tools</li>
+<li>Use Home &amp; End to cycle placement point and rotation when using build tool</li>
+<li>Use Backspace key to undo the previously selected path point when using the build tool</li>
+<li>Removed Smooth angle setting (now always set at 30 degrees). </li>
+</ul>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_3" class="lessonStep top">
+	        <h2 class="StepTitle">Bug Fixes</h2>
+		 <div class="instructions">
+  <ul>
+<li> Closed paths now always result in closed Profile Members</li>
+<li> Follow-me API no longer used to create Profile Members</li>
+<li> Profile Members will now orient correctly along twisting or helical paths</li>
+<li> When using the build tool, the preview orientation is now always correct</li>
+<li> Much faster building of Profile Members.</li>
+</ul>
+</div>
+	</div>
+	<div class="clear"></div>
+
+		</div>
+		<div id="LessonPageNav">
+		  <p></p>
+		  <ul>
+		    <li id="LessonPagePrevious"><a href="Assign_Mark_Numbers_to_Profile_Members.html">Previous Page: Assign Mark Numbers to Profile Members</a> &nbsp;</li>
+		    <li id="LessonPageCount">Page <strong>37</strong> of <strong>37</strong></li>
+		    <li id="LessonPageNext"> &nbsp;</li>
+		    
+		  </ul>
+		</div>	
+	</div>	
+</body>
+</html>

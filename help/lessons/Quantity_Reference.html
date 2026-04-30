@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="ScreenSteps http://www.screensteps.com/" />
+	<title>Quantity Reference</title>
+	<link href="../css/neutral.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
+	<link href="../css/prettyPhoto.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
+	<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			$("a[rel^='prettyPhoto']").prettyPhoto({
+			  show_title: false
+			});
+		});
+  </script>
+	
+</head>
+
+<body class="lucida">
+	<div id="wrapper">		
+		<div id="LessonContent">
+			<div class="LessonHeader">
+			  <p><a href="../index.html">Back to Table of Contents</a></p>
+				<h1 class="LessonTitle">Quantity Reference</h1>
+			</div>
+			
+			
+				<div id="step_1" class="lessonStep top">
+	        <h2 class="StepTitle">Length</h2>
+		 <div class="instructions">
+  <p>Profile Members: Length = length of the Profile Member path<br />
+Groups / Components: Length = maximum dimension of the Object's bounding box</p>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_2" class="lessonStep top">
+	        <h2 class="StepTitle">Surface Area</h2>
+		 <div class="instructions">
+  <p>All Objects: Surface Area = Sum of all areas of the faces inside the Object</p>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_3" class="lessonStep top">
+	        <h2 class="StepTitle">Area</h2>
+		 <div class="instructions">
+  <p>2D Profile Members: Area = Volume / (least of Length, Profile Width, Profile Height)<br />
+1D Profile Members: Area = Length * (greatest of Profile Width, Profile Height)</p>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_4" class="lessonStep top">
+	        <h2 class="StepTitle">Volume</h2>
+		 <div class="instructions">
+  <p>When it is important to know the volume and weight of a particular object, make sure that the Object is modeled as  Profile Member or as a solid object.  In a solid object, each edge bounds exactly two faces. </p>
+
+
+<p>Profile Members: Volume = Area of the Profile multiplied by the length of the member. <br />
+Solid Groups / Components that contain no child Objects: Volume = volume of the solid (same as value calculated by SketchUp)<br />
+Solid Groups / Components with child Objects: Volume = volume the mesh (calculated by Profile Builder)<br />
+Non-Solid Groups / Components: Volue = estimated volume of the mesh</p>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_5" class="lessonStep top">
+	        <h2 class="StepTitle">Weight</h2>
+		 <div class="instructions">
+  <p>The weight calculation will depend on the unit weight data assigned to the layer that the Object is associated with.  The weight will be based on the unit weight multiplied by either the length, area or volume.</p>
+</div>
+	</div>
+	<div class="clear"></div>
+	<div id="step_6" class="lessonStep top">
+	        <h2 class="StepTitle">Cost</h2>
+		 <div class="instructions">
+  <p>The cost calculation will depend on the cost data assigned to the layer that the Object is associated with.  To view the cost calculation, select a single object in your model with the Quantifier tool activated.</p>
+</div>
+	</div>
+	<div class="clear"></div>
+
+		</div>
+		<div id="LessonPageNav">
+		  <p></p>
+		  <ul>
+		    <li id="LessonPagePrevious"><a href="Show_Missing_Cost_Data.html">Previous Page: Show Missing Cost Data</a> &nbsp;</li>
+		    <li id="LessonPageCount">Page <strong>33</strong> of <strong>37</strong></li>
+		    <li id="LessonPageNext"><a href="PMPI_within_a_Tool.html">Next Page: PMPI within a Tool</a> &nbsp;</li>
+		    
+		  </ul>
+		</div>	
+	</div>	
+</body>
+</html>

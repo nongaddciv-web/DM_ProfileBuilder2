@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Material Cost</title>
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css">
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/pb.js"></script>
+
+
+<style>
+
+#materialName {width:98%;margin-right:0px;}
+#material_cost {width:55%;text-align:right;}
+#closeButtonWrapper {margin-left:auto;margin-right:auto;width:75%;}
+#closeButton {width:100%;}
+#materialCostUnit {width:40%;}
+
+</style>
+</head>
+
+<body scroll=no style="border:0px; margin:0px; overflow:hidden">
+<table>
+
+<tr>
+<td align="left">Material</td>
+<td><select id="materialName" onchange="tellSU(this)"></select></td>
+</tr>
+
+<tr>
+<td align="left">Cost</td>
+<td><input id="material_cost" onchange="tellSU(this)">
+<select id="materialCostUnit" onchange="tellSU(this)">
+	<option value="ft2">ft2</option>
+	<option value="m2">m2</option>
+</select></td>
+</tr>
+</table>
+
+<div id="closeButtonWrapper">
+<input id="closeButton" type="button" value="OK" onclick="tellSU(this);">
+</div>
+
+<script type="text/javascript">
+
+$("#closeButton").button();
+
+function tellSU(element)
+{
+	id=element.id
+	value=element.value
+	window.location='skp:ValueChanged@'+id +"|"+ value;
+}
+
+</script>
+
+</body>
+</html>

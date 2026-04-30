@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Layer Cost</title>
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css">
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/pb.js"></script>
+
+<style>
+
+#layerName {width:98%;margin-right:0px;}
+#layerCost,#layerWeight {width:55%;text-align:right;}
+#closeButtonWrapper {margin-left:auto;margin-right:auto;width:75%;}
+#closeButton {width:100%;}
+#laterWeightUnit, #layerCostUnit {width:40%;}
+
+</style>
+
+</head>
+
+<body scroll=no style="border:0px; margin:0px; overflow:hidden">
+
+<table>
+
+<tr>
+<td align="left">Layer</td>
+<td align="right"><select id="layerName" class="map" onchange="tellSU(this)"></select></td>
+</tr>
+
+<tr>
+<td align="left">Weight</td>
+<td align="right"><input id="layerWeight" onchange="tellSU(this)">
+<select id="laterWeightUnit" onchange="tellSU(this)">
+	<option value="kg/m3">kg/m3</option>
+	<option value="kg/m2">kg/m2</option>
+	<option value="kg/m">kg/m</option>
+	<option value="lb/ft3">lb/ft3</option>
+	<option value="lb/ft2">lb/ft2</option>
+	<option value="lb/ft">lb/ft</option>
+</select></td>
+</tr>
+
+<tr>
+<td align="left">Cost</td>
+<td align="right"><input class="formInputText" id="layerCost" onchange="tellSU(this)">
+<select id="layerCostUnit" onchange="tellSU(this)">
+	<option value="kg">kg</option>
+	<option value="tonne">tonne</option>
+	<option value="m3">m3</option>
+	<option value="m2">m2</option>
+	<option value="m">m</option>
+	<option value="lb">lb</option>
+	<option value="ton">ton</option>
+	<option value="ft3">ft3</option>
+	<option value="ft2">ft2</option>
+	<option value="ft">ft</option>
+	<option value="yd3">yd3</option>
+</select></td>
+</tr>
+</table>
+
+<div id="closeButtonWrapper">
+<input id="closeButton" type="button" value="OK" onclick="tellSU(this);">
+</div>
+
+<script type="text/javascript">
+
+$("#closeButton").button();
+
+function tellSU(element)
+{
+	id=element.id
+	value=element.value
+	window.location='skp:ValueChanged@'+id +"|"+ value;
+}
+
+</script>
+
+</body>
+</html>

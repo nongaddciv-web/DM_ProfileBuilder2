@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>FenceBuilder</title>
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css"/>
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css"/>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/pb.js"></script>
+
+<script type="text/javascript">
+	 $(document).ready(function(){
+		refreshValues();
+		setCurrentTab();
+		//$('#tabs').height($('#post_settings').height);
+	 });
+</script>
+	 
+
+<style>
+body {overflow-y:scroll; overflow-x: hidden}
+select {width:75px;}
+.profileButton{width:75px;}
+#profilerow {padding:0px;margin:0px;}
+#postComp {width:186px;overflow:hidden;text-overflow:ellipsis;}
+#railProfile {width:140px;overflow:hidden;text-overflow:ellipsis;}
+#postName,#railName {width:180px;}
+#fenceDescription {font-family:'Arial';font-size:1.0em;width:95%;height:100%;overflow:hidden;padding:2px;margin-right:4px;}
+#postLayout, #postRotation {width:80pt;font-family:'Arial';}
+#selectionStatus {margin:0px;font-weight:bold;font-size:7pt;padding:5px;padding-bottom:0px;}
+hr {margin:4px;padding:0px;}
+#editProfile {width:16px;height:16px;}
+#post_content, #profile_content {width:100%;margin:0px;padding:0px}
+#postIndex, #railIndex {position:relative;bottom:10px;}
+#tabs {}
+#post_content {min-height:250px;overflow-y:auto;overflow-x:hidden;display:none;}
+#profile_content {min-height:250px;overflow-y:auto;overflow-x:hidden;display:none;}
+
+</style>
+</head>
+
+<body style="border:0px; margin:0px;">
+
+<div class="top-bar">
+<table id="topbarTable">
+<tr>
+<td align="left">
+	<input class="top-name" type="text" id="fenceName" onchange="tellSU(this)" tabindex="1">
+</td>
+<td align="right" style="min-width:100px;">
+	<input type="image" class="smallbutton" id="LoadFencebutton" title="Assembly Browser" src="search.png" onclick="tellSU(this)">
+	<input type="image" class="smallbutton" id="SaveFencebutton" title="Save Assembly" src="save.png" onclick="tellSU(this)";>
+	<input type="image" class="smallbutton" id="NewFenceButton" title="New Assembly" src="plus.png" onclick="tellSU(this)">
+</td>
+</tr>
+</table>
+</div>
+
+<table style="width:100%">
+<tr>
+	<td style="width:140px;cursor:pointer;"><input type="image" title="Click to Refresh" id="PreviewImage" name="PreviewImage" src="nopreview.png" onclick="tellSU(this);"></td>
+	<td style="vertical-align:top;">
+	<textarea rows="5" id="fenceDescription" onchange="tellSU(this);"></textarea>
+	</td>
+</tr>
+</table>
+
+
+<div id="tabs">
+<ul>
+	 <li><a href="#profile_content" id="pmtab"><span>Profile Member</span></a></li>
+    <li><a href="#post_content" id="componenttab"><span>Component</span></a></li>
+   
+</ul>
+<div id="post_content" value="Post">
+
+<table>
+<tr>
+	<td align="left">
+		<input class="smallbutton" id="previousPostButton" type="image" src="previous.png" onclick="tellSU(this);">
+		<span id="postIndex">1 of 1</span>
+		<input class="smallbutton" id="nextPostButton" type="image" src="next.png" onclick="tellSU(this);">
+	</td>
+	<td align="right">
+		<input id="addPostButton" title="Add Component" type="image" class="smallbutton" src="plus.png" height="16" width="16" onclick="tellSU(this);">
+		<input id="deletePostButton" title="Remove Component" type="image" class="smallbutton" src="trash.png" height="16" width="16" onclick="tellSU(this);">
+	</td>
+</tr>
+</table>
+
+<div id="post_settings">
+
+<table id="postTable">
+<tr>
+	<td align="left">Name</td>
+	<td align="right"><input id="postName" type="text" onchange='tellSU(this);'></td>
+</tr>
+
+<tr>
+	<td align="left">Component</td>
+	<td align="right"><input type="button" id="postComp" value="Select.." onclick='tellSU(this);'></td>
+</tr>
+</table>
+
+<table>
+<tr style="text-align:center;">
+	<td><a class="tooltip left top">Infill<span>Place components at the given spacing along the path</span></a><input id="infillCheckbox" onclick='tellSUcb(this);'type="checkbox"></td>
+	<td><a class="tooltip left top">Start<span>Place a component at the start of the path</span></a><input id="startCheckbox" onclick='tellSUcb(this);' type="checkbox"></td>
+	<td><a class="tooltip right top">Junctions<span>Place components at path junctions</span></a><input id="junctionCheckbox" onclick='tellSUcb(this);' type="checkbox"></td>
+	<td><a class="tooltip right top">End<span>Place a component at the end of the path</span></a><input id="endCheckbox" onclick='tellSUcb(this);' type="checkbox"></td>
+</tr>
+</table>
+
+<div id="infillSettings">
+
+<hr/>
+<table>
+<tr>
+	
+	<td><a class="tooltip left top" href="#">Spacing<span><img src="tooltips/comp_spacing.png"></span></a><input id="postSpacing" onchange='tellSU(this);' style="width:36pt;text-align:right;margin-left:2px;"></td>
+	<td align="right"><a class="tooltip right top" href="#">Max<span><img src="tooltips/comp_max.png"></span></a><input type="checkbox" onclick='tellSUcb(this);' id="postMaxSpacing"></td>
+	<td align="right"><a class="tooltip right top" href="#">Horiz<span><img src="tooltips/comp_horiz.png"></span></a><input type="checkbox" onclick='tellSUcb(this);'id="postHorizontalSpacing"></td>
+
+</tr>
+</table>
+
+<table>
+
+<tr>
+	<td><a class="tooltip left top" href="#">Layout<span><img src="tooltips/comp_layout.png"></span></a></td>
+	<td align="right">
+		<select id="postLayout" onchange='tellSU(this);'>
+			<option value="From Start">From Start</option>
+			<option value="From Middle">From Middle</option>
+		</select>
+	</td>
+</tr>
+</table>
+</div>
+
+
+<table>
+<tr id="startSetbackSettings">
+	<td><a class="tooltip left bottom" href="#">Start Setback<span><img src="tooltips/comp_start_setback.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postStartSetback" onchange='tellSU(this);'></td>
+</tr>
+<tr id="junctionSetbackSettings">
+	<td><a class="tooltip left bottom" href="#">Junction Setback<span><img src="tooltips/comp_junction_setback.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postJunctionSetback" onchange='tellSU(this);'></td>
+</tr>
+<tr id="endSetbackSettings">
+	<td><a class="tooltip left bottom" href="#">End Setback<span><img src="tooltips/comp_end_setback.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postEndSetback" onchange='tellSU(this);'></td>
+</tr>
+</table>
+
+<hr/>
+
+
+<table>
+
+<tr>
+	<td><a class="tooltip left bottom" href="#">Rotation<span><img src="tooltips/comp_rotate.png"></span></a></td>
+	<td align="right">
+	<select id="postRotation" onchange='tellSU(this);'>
+			<option value="0">0 deg</option>
+			<option value="90">90 deg</option>
+			<option value="180">180 deg</option>
+			<option value="270">270 deg</option>
+			<option value="Average">Average</option>
+			<option value="Smooth">Smooth</option>
+			<option value="Random">Random</option>
+	</select>
+	</td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Elevation<span><img src="tooltips/comp_elevation.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postHeightOffset" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Left / Right Offset<span><img src="tooltips/comp_lr_offset.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postXOffset" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Up / Down Offset<span><img src="tooltips/comp_ud_offset.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postYOffset" onchange='tellSU(this);'></td>
+</tr>
+
+<tr>
+	<td><a class="tooltip left bottom" href="#">Stay Vertical<span><img src="tooltips/comp_stay_vertical.png"></span></a></td>
+	<td align="right"><input id="postStayVertical" onclick='tellSUcb(this);' type="checkbox"></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Mirror Left / Right<span><img src="tooltips/comp_mirror.png"></span></a></td>
+	<td align="right"><input id="postMirror" onclick='tellSUcb(this);' type="checkbox"></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Min Junction Angle<span><img src="tooltips/comp_junction_angle.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="postJunctionAngle" onchange='tellSU(this);'></td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<div id="profile_content">
+
+<table>
+<tr>
+	<td align="left">
+		<input class="smallbutton" id="previousRailButton" type="image" src="previous.png" onclick="tellSU(this);">
+		<span id="railIndex">1 of 1</span>
+		<input class="smallbutton" id="nextRailButton" type="image" src="next.png" onclick="tellSU(this);">
+	</td>
+	<td align="right">
+		<input id="addRailButton" title="Add Profile Member" type="image" class="smallbutton" src="plus.png" height="16" width="16" onclick="tellSU(this);">
+		<input id="deleteRailButton" title="Remove Profile Member" type="image" class="smallbutton" src="trash.png" height="16" width="16" onclick="tellSU(this);">
+	</td>
+</tr>
+</table>
+
+<div id="rail_settings">
+
+<table id="railTable">
+<tr>
+	<td align="left">Name</td>
+	<td align="right"><input  type="text" id="railName" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td align="left">Profile</td>
+	<td align="right"><input type="button" id="railProfile" value="Select.." onclick="tellSU(this);">
+	<input class="profileButton" id="editProfile" type="image" src="profile.png" onclick="tellSU(this);"></td>
+</tr>
+</table>
+
+<hr/>
+<table>
+<tr>
+	<td><a class="tooltip left top" href="#">Start Setback<span><img src="tooltips/pm_start_setback.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="railStartSetback" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td><a class="tooltip left top" href="#">End Setback<span><img src="tooltips/pm_end_setback.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="railEndSetback" onchange='tellSU(this);'></td>
+</tr>
+</table>
+
+<hr/>
+
+<table>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Elevation<span><img src="tooltips/pm_elevation.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="railHeightOffset" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Left / Right Offset<span><img src="tooltips/pm_lr_offset.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="railXOffset" onchange='tellSU(this);'></td>
+</tr>
+<tr>
+	<td><a class="tooltip left bottom" href="#">Up / Down Offset<span><img src="tooltips/pm_ud_offset.png"></span></a></td>
+	<td align="right"><input type="text" class="dimension" id="railYOffset" onchange='tellSU(this);'></td>
+</tr>
+<tr style="display:none">
+	<td>Allow Slope</td>
+	<td align="right"><input id="railAllowSlope" onclick='tellSUcb(this);' type="checkbox"></td>
+</tr>
+
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bottomButtonBar" id="bottomButtonBar">
+
+<table>
+<tr align="center">
+<td>
+<input class="dlgButton" title="Build Assembly" type="image" id="BuildFenceButton" src="buildassembly.png" onclick="tellSU(this);">
+<input class="dlgButton" title="Build Along Path" type="image" id="BuildAlongPathButton" src="assemblyalongpath.png" onclick="tellSU(this);">
+<input class="dlgButton" title="Apply Assembly Attributes" type="image" id="ApplyButton" src="apply.png" onclick="tellSU(this);">
+<input class="dlgButton" title="Get Assembly Attributes" type="image" id="PickFencebutton" src="dropper.png" onclick="tellSU(this);">
+</td>
+</tr>
+</table>
+</div>
+
+
+
+<script type="text/javascript">
+
+$( "#tabs" ).tabs({
+  activate: function( event, ui ) {setCurrentTab();}
+});
+$("#postComp,#railProfile,#editProfile").button();
+$(".dlgButton").button();
+
+function setHeight(){
+
+var body=document.body
+var html=document.documentElement;
+
+var height=Math.max(body.scrollHeight,body.offsetHeight,html.clientHeight,html.scrollHeight,html.offsetHeight);
+window.location='skp:setHeight@'+height;
+
+}
+
+
+function setCurrentTab()
+{
+
+var tab_index=$( "#tabs" ).tabs("option","active");
+window.location='skp:setCurrentTab@'+tab_index;
+
+}
+
+function refreshValues(){
+
+    window.location='skp:RefreshValues';
+}
+
+function buildFence(){
+	window.location='skp:BuildFence';
+}
+
+function saveFence(){
+	window.location='skp:SaveFence';
+}
+
+function loadFence(){
+	window.location='skp:LoadFence';
+}
+
+function activateInfill(){
+	$("#infillSettings").slideDown();
+	$("#startSetbackSettings").slideDown();
+	$("#endSetbackSettings").slideDown();
+	$("#junctionSetbackSettings").slideDown();
+	$("#startCheckbox").prop('checked', true);
+	$("#junctionCheckbox").prop('checked', true);
+	$("#endCheckbox").prop('checked', true);
+	$("#startCheckbox").attr("disabled", true);
+	$("#junctionCheckbox").attr("disabled", true);
+	$("#endCheckbox").attr("disabled", true);
+}
+
+function deactivateInfill(){
+	$("#infillSettings").slideUp();
+	$("#startCheckbox").removeAttr("disabled");
+	$("#junctionCheckbox").removeAttr("disabled");
+	$("#endCheckbox").removeAttr("disabled");
+}
+
+function showInfillSettings() {
+	$("#infillSettings").slideDown();
+	$("#startSetbackSettings").slideDown();
+}
+
+function showStartSetbackSettings() {
+	$("#startSetbackSettings").slideDown();
+}
+
+function hideStartSetbackSettings() {
+	$("#startSetbackSettings").slideUp();
+	
+}
+
+function hideInfillSettings() {
+	$("#infillSettings").slideUp();
+}
+
+function hidePostSettings() {
+	$("#post_settings").hide();
+}
+
+function showPostSettings() {
+	$("#post_settings").show();
+}
+
+function hideRailSettings() {
+	$("#rail_settings").hide();
+}
+
+function showRailSettings() {
+	$("#rail_settings").show();
+}
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
+
+document.onkeypress = stopRKey; 
+
+</script>
+
+</body>
+</html>

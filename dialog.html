@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css"/>
+<script type="text/javascript" src="js/wz_jsgraphics.js"></script>
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css"/>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/pb.js"></script>
+
+<title>ProfileBuilder</title>
+
+<style>
+
+#placementPoint {width:100%;margin-top:0px;}
+#profilerow {padding:0px;margin:0px;}
+#Canvas {}
+#lockAspect {border:1px solid transparent;}
+#lockAspect:hover {border:1px solid gray;}
+.overflow {height: 200px;}
+#primaryPropertiesTable {width:100%;padding-top:0px;padding-left:0px;margin-top:0px;margin-left:2px;vertical-align:middle;}
+td > img {padding-right:2px;vertical-align:middle;}
+#buildOptionsTable {width:100%;padding-top:4px;margin-top:8px;border-top:1px solid #B8B8B8;}
+#buildOptionsTable td {vertical-align:middle;}
+#extrudeMode {width:90pt;}
+.junctionButtons {text-align:right;white-space:nowrap;}
+.junctionButton {
+	width:26px;
+	height:26px;
+	margin-left:4px;
+	padding:2px;
+	border:1px solid #AAAAAA;
+	background:#EEEEEE;
+	cursor:pointer;
+	vertical-align:middle;
+	position:relative;
+}
+.junctionButton:hover {background:#E0E0E0;border-color:#777777;}
+.junctionButton.active {background:#D4D4D4;border-color:#666666;}
+.junctionButtonIcon {
+	display:block;
+	width:16px;
+	height:16px;
+	margin:2px auto;
+	position:relative;
+}
+.junctionButtonIcon:before,
+.junctionButtonIcon:after {
+	content:"";
+	position:absolute;
+	display:block;
+	border-color:#606060;
+	border-style:solid;
+}
+.junctionContinuous:before {
+	left:1px;
+	top:1px;
+	width:12px;
+	height:12px;
+	border-width:3px 0 0 3px;
+}
+.junctionContinuous:after {
+	right:0px;
+	bottom:0px;
+	width:12px;
+	height:12px;
+	border-width:0 3px 3px 0;
+}
+.junctionMiter:before {
+	left:1px;
+	top:1px;
+	width:12px;
+	height:12px;
+	border-width:3px 0 0 3px;
+}
+.junctionMiter:after {
+	left:7px;
+	top:7px;
+	width:10px;
+	height:10px;
+	border-width:3px 0 0 3px;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+}
+.junctionButt:before {
+	left:1px;
+	top:1px;
+	width:12px;
+	height:12px;
+	border-width:3px 0 0 3px;
+}
+.junctionButt:after {
+	left:8px;
+	top:5px;
+	width:9px;
+	height:9px;
+	border-width:3px 0 0 3px;
+}
+
+</style>
+
+</head>
+
+<body style="border:0px; margin:0px; overflow:hidden">
+
+<div class="top-bar">
+<table id="topbarTable">
+<tr>
+<td align="left">
+		<input class="top-name" type="text" id="profileName" onchange="tellSU(this)" tabindex="1">
+</td>
+<td align="right" style="min-width:100px;">
+		<input type="image" class="smallbutton" id="profileBrowseButton" title="Profile Browser" src="search.png" onclick="tellSU(this)">
+		<input type="image" class="smallbutton" id="saveButton" title="Save Profile" src="save.png" onclick="tellSU(this)";>
+		<input type="image" class="smallbutton" id="createProfileButton" title="New Profile" src="plus.png" onclick="tellSU(this)">
+</td>
+</tr>
+</table>
+
+</div>
+
+<table>
+<tr>
+	<td align="center" id="PreviewImage">
+	<div id="Canvas"</div>
+	</td>
+	<td style="vertical-align:top;margin-top:0px;margin-right:0px;padding-top:0px;padding-right:0px;">			
+		<table id="primaryPropertiesTable">
+		<tr>
+		<td align="left"><img title="Placement Point" class="prop-icon" width="16" height="16" src="placement_point.png"></td>
+		<td align="right"><select id="placementPoint" onchange="tellSU(this)">
+		<option value="1">Top-Left</option>
+		<option value="2">Top-Middle</option>
+		<option value="3">Top-Right</option>
+		<option value="4">Center-Left</option>
+		<option value="5">Center</option>
+		<option value="6">Center-Right</option>
+		<option value="7">Bottom-Left</option>
+		<option value="8">Bottom-Middle</option>
+		<option value="9">Bottom-Right</option>
+		</select></td>
+		</tr>
+
+
+		<tr><td align="left"><img title="Rotation" width="16" height="16" src="rotation.png"></td><td align="right"><input class="dimension" tabindex="2" id="rotation" value="0.0" type="text" size="5" onkeyup="tellSU(this)"></td>
+		</tr>
+
+		<tr><td align="left"><img title="Mirror" width="16" height="16" src="mirror.png"></td>
+		<td align="right"><input style="width:16px;" id="mirror" type="checkbox" onclick="tellSUcb(this)"></td>
+		</tr>
+
+		<tr>
+			<td align="left"><img title="X Offset" width="16" height="16" src="x_offset.png"></td>
+			<td align="right"><input class="dimension" id="xOffset" value="0.0" type="text" onkeyup="tellSU(this)"></td>
+		</tr>
+
+		<tr>
+			<td align="left"><img title="Y Offset" width="16" height="16" src="y_offset.png"></td>
+			<td align="right"><input class="dimension" id="yOffset" value="0.0" type="text" size="5" onkeyup="tellSU(this)"></td>
+		</tr>
+		</table>		
+	</td>
+</tr>
+</table>
+
+
+<h2>Dimension</h2>
+<table>
+
+<tr>
+	<td align="left" style="width:35%">Width</td>
+	<td rowspan="2" style="width:25%;"><input style="width:100%;" type="button" id="resetScale" value="Reset" onclick="tellSU(this);"></td>
+	<td align="right" style="width:15%;" rowspan="2"><input id="lockAspect" type="image" src="lockaspect.png" onclick="tellSU(this);"></td>
+	<td align="right" style="width:auto;"><input class="dimension" id="width" value="0.0" type="text" size="5" onkeyup="tellSU(this);"></td>
+</tr>
+
+<tr>
+	<td align="left" style="width:35%">Height</td>
+	<td align="right"><input class="dimension" id="height" value="0.0" type="text" size="5" onkeyup="tellSU(this);"></td>
+</tr>
+
+<!-- <tr>
+	<td align="left">Extend</td>
+	<td align="right"><input class="formInputText" id="extend" value="0.0" type="text" size="5" onkeyup="tellSU(this)"></td>
+</tr> -->
+	
+</table>
+
+
+<h2>Attributes</h2>
+<table>
+
+<tr>
+	<td align="left">Material</td>
+	<td align="right"><select id="materialName" class="map" style="width:90pt;" onchange="tellSU(this)"></select></td>
+</tr>
+
+<tr>
+	<td align="left">Layer</td>
+	<td align="right"><select id="layerName" class="map" style="width:90pt;" onchange="tellSU(this)"></select></td>
+</tr>
+
+
+</table>
+
+<table id="buildOptionsTable">
+<tr>
+	<td align="left">Junctions</td>
+	<td align="right" class="junctionButtons">
+		<button type="button" class="junctionButton active" id="junctionContinuousButton" title="ต่อเนื่อง: สร้างชิ้นงานเป็นชิ้นเดียวต่อเนื่อง" onclick="setJunctionMode('continuous', this)">
+			<span class="junctionButtonIcon junctionContinuous">
+				<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+					<path d="M2 8 L6 8 L10 8 L14 8" stroke="#606060" stroke-width="2" fill="none" stroke-linecap="square" />
+				</svg>
+			</span>
+		</button>
+		<button type="button" class="junctionButton" id="junctionMiterButton" title="มุมฉาก (Miter): แบ่งท่อนและตัดแต่งเข้ามุม" onclick="setJunctionMode('miter', this)">
+			<span class="junctionButtonIcon junctionMiter">
+				<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+					<path d="M2 12 L8 6 L14 12" stroke="#606060" stroke-width="2" fill="none" stroke-linecap="square" />
+				</svg>
+			</span>
+		</button>
+		<button type="button" class="junctionButton" id="junctionButtButton" title="ต่อชน (Butt): แบ่งท่อนและต่อชนปลายชิ้น" onclick="setJunctionMode('butt', this)">
+			<span class="junctionButtonIcon junctionButt">
+				<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+					<path d="M2 8 L7 8 M9 8 L14 8" stroke="#606060" stroke-width="2" fill="none" stroke-linecap="square" />
+					<circle cx="8" cy="8" r="1" fill="#606060" />
+				</svg>
+			</span>
+		</button>
+	</td>
+</tr>
+<tr>
+	<td align="left">Extrude Mode</td>
+	<td align="right">
+		<select id="extrudeMode" onchange="setExtrudeMode(this.value)">
+			<option value="normal">Normal</option>
+			<option value="follow_me">Follow Me</option>
+		</select>
+	</td>
+</tr>
+</table>
+
+<div id="bottomButtonBar">
+<table width="100%">
+<tr align="center">
+<td>
+<input type="image" class="dlgButton" id="drawMemberButton" title="Build" onclick="buildMember();document.blur()" src="profilemember.png"/>
+<input type="image" class="dlgButton" id="createAlongPathButton" title="Build along path (Follow Me)" onclick="tellSU(this)" src="buildalongpath.png"/>
+<input type="image" class="dlgButton" id="revolveButton" title="Revolve Profile" onclick="tellSU(this)" src="lathe_2.png"/>
+<input type="image" class="dlgButton" id="editMemberButton" title="Edit member properties" onclick="tellSU(this)" src="edit_pm.png"/>
+<!-- input type="image" class="dlgButton" id="editPathButton" title="Edit member path" onclick="tellSU(this)" src="edit_path.png"/ -->
+<input type="image" class="dlgButton" id="selectByButton" title="Select members by attributes" onclick="tellSU(this)" src="select_pm.png"/>
+<input type="image" class="dlgButton" id="drawProfileButton" title="Stamp Profile" onclick="tellSU(this)" src="stamp_profile.png"/>
+<input type="image" class="dlgButton" id="acquireButton" title="Get Attributes" onclick="tellSU(this)" src="dropper.png"/>
+</td>
+</tr>
+</table>
+</div>
+
+<table id="applyDiv" style="width:100%;display:none">
+<tr align="center">
+<td>
+<button style="width:75%" id="applyButton" title="OK" onclick="send_profile_to_su();">OK</button>
+</td>
+</tr>
+</table>
+
+<script type="text/javascript">
+
+var ie=detectIE();
+if (ie) {window.onkeyup=port_key;}
+$("#resetScale,#applyButton").button();
+$(".dlgButton").button();
+$(".junctionButton").button();
+
+var jg=new jsGraphics("Canvas");
+var profile_color="#808080";
+//var bg_color="#E6E6E6";
+var bg_color="#FFFFFF";
+jg.setColor(profile_color);
+jg.setStroke(1);
+
+var lock_aspect=true;
+var junction_mode="continuous";
+var extrude_mode="normal";
+
+function notifySUValue(id,value)
+{
+	window.location='skp:ValueChanged@'+id +"|"+ value;
+}
+
+function setJunctionMode(mode,button)
+{
+	junction_mode=mode;
+	$(".junctionButton").removeClass("active");
+	$(button).addClass("active");
+	notifySUValue("junctionMode", mode);
+}
+
+function setExtrudeMode(mode)
+{
+	extrude_mode=mode;
+	notifySUValue("extrudeMode", mode);
+}
+
+function buildMember()
+{
+	if (extrude_mode=="follow_me") {
+		tellSU(document.getElementById("createAlongPathButton"));
+	} else {
+		tellSU(document.getElementById("drawMemberButton"));
+	}
+}
+
+function send_profile_to_su()
+{
+	window.location='skp:apply';
+}
+
+function clearCanvas()
+{
+	jg.clear();
+}
+
+function drawProfile(xpoints,ypoints,canvas_id)
+{
+	jg.setColor(profile_color);
+	jg.fillPolygon(xpoints,ypoints);
+	jg.paint();
+}
+
+function drawPolyline(xpoints,ypoints,canvas_id)
+{
+	jg.setStroke(2);
+	jg.setColor(profile_color);
+	jg.drawPolyline(xpoints,ypoints);
+	jg.paint();
+}
+
+function drawHole(xpoints,ypoints,canvas_id)
+{
+
+jg.setColor(bg_color);
+jg.fillPolygon(xpoints,ypoints);
+jg.paint();
+
+}
+
+function drawOrigin(x,y)
+{
+	jg.setColor("red");
+	jg.fillEllipse(x, y, 6, 6);
+	jg.paint();
+}
+
+function lockAspect()
+{
+	$("#lockAspect").attr('src','lockaspect.png');
+}
+
+function unlocklockAspect()
+{
+	$("#lockAspect").attr('src','unlockaspect.png');
+}
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
+
+document.onkeypress = stopRKey; 
+
+function showModalDisplay()
+{
+	$("#bottomButtonBar").hide();
+	$("#applyDiv").show();
+}
+
+</script>
+
+</body>
+</html>

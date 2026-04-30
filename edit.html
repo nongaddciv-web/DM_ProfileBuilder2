@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css"/>
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+
+
+<script type="text/javascript">
+	 $(document).ready(function(){
+		$("#applyButton,#cancelButton,#allButton,#clearButton").button();
+	 });
+</script>
+
+
+
+<title>ProfileBuilder</title>
+</head>
+
+<body style="border:0px; margin:0px; overflow:hidden">
+
+<table style="width:100%">
+
+<tr>
+<td align="left" colspan="2">
+<input class="formInputText" id="profile" type="checkbox">
+Profile / Name / Width / Height</td>
+
+</tr>
+
+<tr><td align="left">
+<input class="formInputText" id="placementPoint" type="checkbox">
+Placement Point</td>
+<td align="left">
+<input class="formInputText" id="rotation" type="checkbox">
+Rotation</td>
+</tr>
+
+<tr>
+
+<td align="left">
+<input class="formInputText" id="xOffset" type="checkbox">
+X Offset</td>
+
+<td align="left">
+<input class="formInputText" id="yOffset" type="checkbox">
+Y Offset</td>
+</tr>
+
+<tr>
+<td align="left">
+<input class="formInputText" id="mirror" type="checkbox">
+Mirror</td>
+
+<td align="left">
+<input class="formInputText" id="material_name" type="checkbox">
+Material</td>
+</tr>
+
+<tr>
+<td align="left">
+<input class="formInputText" id="layer_name" type="checkbox">
+Layer</td>
+
+<td>&nbsp;</td>
+</tr>
+
+</table>
+
+
+<table style="float:center" width="100%">
+<tr align="center">
+<td><input id="applyButton" type="button" value="Apply" onclick="applySettings()"></td>
+<td><input id="cancelButton" type="button" value="Cancel" onclick="cancel()"></td>
+<td><input id="allButton" type="button" value="All" onclick="checkAll()"></td>
+<td><input id="clearButton" type="button" value="Clear" onclick="clearAll()"></td>
+</tr>
+</table>
+
+
+<script type="text/javascript">
+
+function tellSU(element)
+{
+	id=element.id
+	value=element.value
+	window.location='skp:ValueChanged@'+id +"="+ value;
+}
+function applySettings() {
+	var profile=document.getElementById("profile").checked
+	var rotation=document.getElementById("rotation").checked
+	var mirror=document.getElementById("mirror").checked
+	var placement_point=document.getElementById("placementPoint").checked
+	var x_offset=document.getElementById("xOffset").checked
+	var y_offset=document.getElementById("yOffset").checked
+	var material=document.getElementById("material_name").checked
+	var layer=document.getElementById("layer_name").checked
+	
+	window.location='skp:apply_settings@'+profile+"|"+rotation+"|"+mirror+"|"+placement_point+"|"+x_offset+"|"+y_offset+"|"+material+"|"+layer;
+}
+function cancel(){
+	window.location='skp:cancel';
+}
+
+function checkAll(){
+	document.getElementById("profile").checked=true
+	document.getElementById("rotation").checked=true
+	document.getElementById("mirror").checked=true
+	document.getElementById("placementPoint").checked=true
+	document.getElementById("xOffset").checked=true
+	document.getElementById("yOffset").checked=true
+	//document.getElementById("smoothAngle").checked=true
+	document.getElementById("material_name").checked=true
+	document.getElementById("layer_name").checked=true
+}
+
+function clearAll(){
+	document.getElementById("profile").checked=false
+	document.getElementById("rotation").checked=false
+	document.getElementById("mirror").checked=false
+	document.getElementById("placementPoint").checked=false
+	document.getElementById("xOffset").checked=false
+	document.getElementById("yOffset").checked=false
+	//document.getElementById("smoothAngle").checked=false
+	document.getElementById("material_name").checked=false
+	document.getElementById("layer_name").checked=false
+}
+
+</script>
+
+</body>
+</html>

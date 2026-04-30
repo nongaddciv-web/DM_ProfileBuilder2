@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link type="text/css" rel="StyleSheet" href="profileBuilder.css"/>
+<link type="text/css" rel="StyleSheet" href="js/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/pb.js"></script>
+
+<script type="text/javascript">
+	 $(document).ready(function(){
+		$(window).scroll(function() {
+			if($(window).scrollTop() == $(document).height() - $(window).height()) {
+				load_more();
+			}
+		});
+		//window.location='skp:refresh_dialog';
+	 });
+</script>
+
+<style>
+
+body {border:0px;margin:0px;}
+h3{font-size: 14px; margin: 0; padding: 0; line-height: 16px; font-weight: bold; }
+#results{padding: 10px;position:relative;top:50px;z-index:0}
+#results .result{float:left;margin-bottom:20px;position: relative; color: #333; border: 1px solid white; padding: 5px 5px 5px 5px; cursor: pointer;}
+#results h2{padding-left:10px;}
+#results .result.hover{background-color: #FFFFF1; border: 1px solid #777;}
+.profilePreview {}
+.profileThumbnail {border: 1px solid #CACACA;background-color:white;width:128px;height:128px;padding:8px;margin:4px;}
+#searchButton, #openFolder {width:25%;height:auto;margin:0px;vertical-align:middle;}
+#searchString {width:200px;vertical-align:middle;}
+#header {position:fixed;z-index:10;}
+#libDir {width:400px;direction:rtl;vertical-align:middle;}
+
+</style>
+
+</head>
+<body>
+
+<div id="header" class="top-bar">
+<table id="topbarTable">
+<tr>
+<td align="left">
+	<input id="libDir" class="top-name" type="text" readonly="readonly" onKeyDown="if(event.keyCode==13)searchLibrary()">
+	<input type="button" id="openFolder" value="Open Library" onclick="openLibrary()">
+</td>
+<td align="right">
+	<input id="searchString" class="top-name" type="text" onKeyDown="if(event.keyCode==13)searchLibrary()">
+	<input type="button" value="Filter" id="searchButton" onclick="searchLibrary()">
+</td>
+</tr>
+</table>
+</div>
+
+<div id="results"></div>
+
+<script type="text/javascript">
+
+$("#openFolder, #searchButton").button();
+
+function listProfile(thumb_path,profile_name){
+
+	var result = $("<div>", {
+		title: "Click to Load",
+		"class": "result"
+	});
+	$("<h3>").text(profile_name).appendTo(result);
+	$("<div>", {"class": "profilePreview"})
+		.append($("<img>", {
+			"class": "profileThumbnail",
+			src: thumb_path
+		}))
+		.appendTo(result);
+
+	result.mouseover(
+		function(){$(this).addClass('hover');}
+	).mouseout(
+		function(){$(this).removeClass('hover');}
+	).click(
+		function(){window.location = 'skp:select_skp@' + profile_name}
+	).appendTo("#results");
+
+}
+
+
+function searchLibrary() {
+
+	$('#results').html("");
+	var q = $("#searchString").val();
+	window.location='skp:search@'+q;
+	
+}
+
+function openLibrary() {
+	window.location='skp:open_library';
+}
+
+function load_more() {
+	window.location='skp:load_more';
+}
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
+
+document.onkeypress = stopRKey; 
+
+//searchLibrary();
+
+</script>
+ 
+  </body>
+
+</html>
